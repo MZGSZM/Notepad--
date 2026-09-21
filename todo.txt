@@ -1,5 +1,19 @@
-Planned changes/fixes:
-1. Better line number handling when using word wrap.
-2. Slight weirdness with replace for multiple single replacements in a row.
-3. When opening find window, force set focus to that window's text box.
-4. Ignore case with find.5. New lines being added (where there shouldn't be) with certain file formatting/encoding. Need to investigate further.
+Remaining / known limitations
+-----------------------------
+- Syntax highlighting only scans the visible window, so a string or comment
+  that spans more lines than fit on screen highlights from the top of the view,
+  not from its true opening delimiter. Python triple-quoted strings and long
+  C block comments are the visible cases.
+- Highlighting is regex-based, not a real lexer. Escaped delimiters are handled,
+  nesting and language embedding (JS inside HTML, for instance) are not.
+- Find/Replace is literal text only. No regex, no whole-word option.
+- The whole file lives in the Text widget, so very large files (tens of MB) are
+  slow to open regardless of the highlighting changes. Needs chunked loading to
+  fix properly.
+- Dark theme cannot recolor the menu bar on Windows or macOS; Tk hands those to
+  the native widget. The editor, gutter, status bar and dialogs are themed.
+- Printing on Linux/macOS goes straight to the default printer via lp with no
+  page setup or preview dialog. Only Windows gets a real print dialog.
+- No recent-files list, no multiple tabs, no auto-indent.
+- macOS CI build does not pass --icon to PyInstaller, so the .app bundle ships
+  the default icon. pyinstaller is unpinned in the workflow.
